@@ -59,6 +59,16 @@ clawtalk 레포에는 제품 날카로운 문서(뭘 + 어떻게):
 
 ---
 
+## TODO 위치 (3곳 분리)
+
+| TODO | 위치 | 관리 범위 |
+|------|------|----------|
+| **생태계 전체** | `~/bhOS/02-projects/PRJ-002-claw/TODO.md` | 도메인, 경쟁자 조사, Phase 전체 추적 |
+| **NanoClaw 전용** | `~/nanoclaw/docs/dev/TODO.md` | NanoClaw 운영, 리서치 산출물 |
+| **ClawTalk 전용** | `~/clawtalk/docs/TODO.md` (향후 생성) | Sprint, 기능, 버그 |
+
+---
+
 ## 핵심 문서
 
 | 문서 | 경로 | 내용 |
