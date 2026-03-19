@@ -54,9 +54,12 @@ export class TelegramChannel implements Channel {
   }
 
   async connect(): Promise<void> {
+    // Force IPv4 — Telegram's IPv6 endpoints are unreachable on many macOS networks.
+    // node-fetch (used internally by grammy) connects via IPv6 by default and times out.
+    const ipv4Agent = new https.Agent({ family: 4, keepAlive: true });
     this.bot = new Bot(this.botToken, {
       client: {
-        baseFetchConfig: { agent: https.globalAgent, compress: true },
+        baseFetchConfig: { agent: ipv4Agent, compress: true },
       },
     });
 
