@@ -49,14 +49,18 @@
 - Google Calendar OAuth 토큰: `poc/schedule-agent/token.json`
 - GCP 프로젝트: `agent-messenger-poc` (Calendar API 활성)
 
-## 상위 비전: Claw 생태계
+## 상위 비전: Claw 생태계 (bhOS 위에서 동작)
 
-ClawTalk은 더 큰 비전의 첫 번째 제품:
-- **ClawTalk** — 소통 (지금 만드는 중)
-- **ClawNote** — 기억 (다음)
-- **NanoClaw** — 행동 (이미 운영 중)
-- **ClawOS** — 관리/설치 (나중)
+```
+~/bhOS/              ← 이미 존재하는 개인 운영체제 (조직/관리/컨텍스트)
+├── 03-dev/claw-lab/ ← Claw 생태계 연구 허브 (30+ 프로젝트 카탈로그)
+│
+~/nanoclaw/          ← 에이전트 런타임 (이미 운영 중)
+~/clawtalk/          ← 에이전트 네이티브 메신저 (지금 만드는 중)
+(향후) ClawNote      ← 온톨로지 기반 세컨브레인
+```
 
+bhOS가 OS 계층 역할. ClawOS를 새로 만들 필요 없음.
 상세: `docs/dev/ECOSYSTEM-VISION.md`
 **지금은 ClawTalk에만 집중.**
 
