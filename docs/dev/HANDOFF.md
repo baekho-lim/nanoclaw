@@ -1,7 +1,6 @@
 # 세션 핸드오프 문서
 
-> 새 세션에서 이 파일을 먼저 읽고 맥락을 파악합니다.
-> 마지막 업데이트: 2026-03-20
+> 새 세션에서 이 파일을 먼저 읽고 맥락을 파악합니다. 마지막 업데이트: 2026-03-20
 
 ---
 
@@ -42,19 +41,35 @@ Phase 3: 통합 + ClawNote 자체 개발 + Agent App Store
 - **ClawTalk**: Room + 실시간 메시징 기본
 - 검증: 로그인 → 빈 Room 리스트 표시
 
+**중요: clawtalk 레포에 제품 전용 문서를 만들 것**
+
+nanoclaw 레포의 문서는 생태계 전략(왜 + 전체 그림).
+clawtalk 레포에는 제품 날카로운 문서(뭘 + 어떻게):
+
+```
+~/clawtalk/
+├── CLAUDE.md              ← ClawTalk 전용 AI 규칙
+├── docs/
+│   ├── PRD.md             ← nanoclaw에서 복사 + 보강
+│   ├── SPRINT-01.md       ← Sprint 1 상세 (화면, API, DB 스키마)
+│   ├── SPRINT-02.md       ← Sprint 2 상세
+│   └── DECISIONS.md       ← ClawTalk 전용 기술 결정
+└── src/
+```
+
 ---
 
 ## 핵심 문서
 
 | 문서 | 경로 | 내용 |
-|------|------|------|
+| --- | --- | --- |
 | **생태계 비전** | `docs/dev/ECOSYSTEM-VISION.md` | 전체 전략, 아키텍처, ADR 13개 |
 | **ClawTalk PRD** | `docs/dev/PRD.md` | 제품 스펙 (7개 기능, BM, 로드맵) |
-| **MVP 구현 계획** | `.claude/plans/abundant-twirling-chipmunk.md` | Sprint 1~8 |
+| **MVP 구현 계획** | `.claude/plans/abundant-twirling-chipmunk.md` | Sprint 1\~8 |
 | **프로토콜 비교** | `docs/research/01-protocol-comparison.md` | A2A/MCP/Matrix → ACP |
 | **메신저 비교** | `docs/research/05-messenger-agent-comparison.md` | 5개 플랫폼 에이전트 통신 |
 | **PoC 코드** | `poc/schedule-agent/` | 재사용할 검증된 코드 |
-| **개발 일지** | `docs/dev/JOURNAL.md` | Day 1~2 기록 |
+| **개발 일지** | `docs/dev/JOURNAL.md` | Day 1\~2 기록 |
 
 ---
 
@@ -68,6 +83,14 @@ Phase 3: 통합 + ClawNote 자체 개발 + Agent App Store
 
 ---
 
+## 문서 역할 분리
+
+| 위치 | 역할 | 내용 |
+|------|------|------|
+| `~/nanoclaw/docs/dev/` | 생태계 전략 | 비전, 아키텍처, BM, 리서치 — **"왜" + "전체 그림"** |
+| `~/clawtalk/docs/` | 제품 실행 | PRD, 스프린트, API 설계, DB 스키마 — **"뭘" + "어떻게"** |
+| `~/bhOS/` | 개인 운영체제 | 프로젝트 관리, 컨텍스트, 규칙 |
+
 ## 핵심 전략 (ADR 요약)
 
 1. **싸우지 않고 이긴다** — 기존 메신저의 상위 집합
@@ -77,3 +100,10 @@ Phase 3: 통합 + ClawNote 자체 개발 + Agent App Store
 5. **모듈 독립성** — Claw Core + 이벤트 버스, 골라 쓰기 가능
 6. **Federated Memory** — 파일 제자리, 인덱스로 연결
 7. **두 트랙** — 로컬(개발자) + 클라우드(일반)
+
+## 주의사항
+
+- IPv6 문제: grammy/node-fetch에서 `https.Agent({ family: 4 })` 필수
+- 봇 토큰 충돌: NanoClaw와 PoC가 같은 봇 토큰, 동시 실행 불가
+- `.env`, `credentials.json`, `token.json`은 git 제외
+- clawtalk 레포에서 nanoclaw 문서를 **참조는 하되 의존하지 않음** — 각 레포가 자기 문서를 소유
