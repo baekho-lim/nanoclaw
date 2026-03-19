@@ -9,6 +9,14 @@
 - [ ] ClawTalk MVP Sprint 1: 프로젝트 셋업 (Next.js + Prisma + Google OAuth)
 - [ ] Sprint 1 검증: 로그인 → 빈 Room 리스트 표시
 
+## 세션 전환 전 체크리스트
+
+- [x] bhOS PROJECT_INDEX에 PRJ-002 등록
+- [ ] bhOS NOW.md 업데이트 (CHIEF 에이전트 관할 — 사용자가 직접 또는 CHIEF에게 위임)
+- [ ] 도메인 확보 확인: clawtalk.app / clawtalk.io / claw.sh 등
+- [ ] 경쟁사 직접 사용해보기: Fireflies, Otter, Tiro (한국어 품질 체감)
+- [ ] 타깃 사용자 1명이라도 대화하기 (에이전트 파워유저 개발자)
+
 ## 이번 주
 
 - [ ] Sprint 2: Room + 실시간 메시징 (WebSocket)
