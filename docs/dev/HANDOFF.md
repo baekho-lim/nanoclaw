@@ -49,8 +49,20 @@
 - Google Calendar OAuth 토큰: `poc/schedule-agent/token.json`
 - GCP 프로젝트: `agent-messenger-poc` (Calendar API 활성)
 
+## 상위 비전: Claw 생태계
+
+ClawTalk은 더 큰 비전의 첫 번째 제품:
+- **ClawTalk** — 소통 (지금 만드는 중)
+- **ClawNote** — 기억 (다음)
+- **NanoClaw** — 행동 (이미 운영 중)
+- **ClawOS** — 관리/설치 (나중)
+
+상세: `docs/dev/ECOSYSTEM-VISION.md`
+**지금은 ClawTalk에만 집중.**
+
 ## 주의사항
 
 - IPv6 문제: grammy/node-fetch에서 `https.Agent({ family: 4 })` 필수
 - 봇 토큰 충돌: NanoClaw와 PoC가 같은 봇 토큰 사용, 동시 실행 불가
 - `.env`, `credentials.json`, `token.json`은 git에서 제외
+- ClawTalk은 **별도 레포** (`/Users/bh/clawtalk/`)에서 개발
