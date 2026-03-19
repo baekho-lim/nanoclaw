@@ -4,9 +4,40 @@
 
 ---
 
-## 2026-03-20 (Day 2)
+## 2026-03-20 (Day 2) — 후반
 
-### 한 일
+### 한 일 (후반)
+- ClawTalk PRD 작성 → `docs/dev/PRD.md`
+  - BYOK + OpenRouter 무료 체험 모델
+  - 온보딩: 캘린더 연동 → 가상봇 체험 → 30초 아하 모먼트
+  - Telegram 첫 진입 → 웹앱으로 유도
+- 생태계 비전 재설계
+  - bhOS = 최종 제품 (AI 워크스테이션), 나머지는 모듈
+  - ClawMemory = 기억 시스템 (노트가 아님), 관계 그래프 + 온도
+  - ClawMeeting = 한국어 미팅 전사 (즉시 수익)
+  - claw-lab은 내부 연구용, 사용자 비노출
+- 모듈 독립성 설계 → Claw Core + 이벤트 버스
+- 문서 세분화: ECOSYSTEM-VISION → VISION + ARCHITECTURE + PRODUCTS + BM
+- 리서치 인덱스 작성 (25개 항목: 시장 5, 경쟁자 5, 기술 12, 법규 5)
+- TODO 3곳 분리 (bhOS 글로벌 / nanoclaw 로컬 / clawtalk 로컬)
+- 세션 마무리 런북 작성 → `~/bhOS/06-runbooks/session-handoff.md`
+
+### 핵심 결정
+- bhOS가 OS 계층 — "ClawOS" 불필요
+- "싸우지 않고 이긴다" — 상위 집합 전략 확정
+- 빌드 순서: ClawTalk + ClawMemory(병행) → ClawMeeting → ClawNote
+- 리서치 산출물: 생태계 공용은 nanoclaw, 제품 전용은 각 레포
+- 문서 역할: nanoclaw = "왜" + 전체, clawtalk = "뭘" + "어떻게"
+
+### 다음 (→ 새 세션)
+- [ ] clawtalk 레포 생성 + Sprint 1
+- [ ] Phase 1 리서치 병렬 실행 (C-02, C-04, T-05, T-06)
+
+---
+
+## 2026-03-20 (Day 2) — 전반
+
+### 한 일 (전반)
 - 메신저별 에이전트 간 통신 가능성 비교 분석 완료 → `docs/research/05-messenger-agent-comparison.md`
 - NanoClaw 채널 아키텍처 상세 분석 (IPC, container-runner, group-queue)
 - 후속 리서치 마스터 플랜 수립 (4단계, 13개 리서치 주제, 6주)

@@ -67,15 +67,23 @@
 
 ---
 
+## 리서치 산출물 위치 규칙
+
+| 성격 | 저장 위치 | 예시 |
+|------|----------|------|
+| 생태계 공용 (프로토콜, 시장 전체) | `~/nanoclaw/docs/research/` | 01, 05, M-01, L-* |
+| ClawTalk 전용 (경쟁자, 기술 선택) | `~/clawtalk/docs/research/` | C-02, C-04, T-05, T-06 |
+| ClawMeeting 전용 (STT, 전사) | `~/clawmeeting/docs/research/` (향후) | T-01, T-02, C-01 |
+
 ## 리서치 실행 순서
 
 ```
 Phase 1과 함께 (ClawTalk + ClawMemory):
-  이미 완료: 01, 05, 전문가 패널, 보안 분석
+  완료: 01, 05, 전문가 패널, 보안 분석
+  진행: C-02, C-04, T-05, T-06 → ~/clawtalk/docs/research/
 
 Phase 2 전에 (ClawMeeting):
   필수: T-01, T-02, T-03, C-01, M-01
-  → 한국어 STT + 실시간 전사 + 비용 + 경쟁자 + 시장
 
 필요 시:
   나머지는 해당 모듈 개발 착수 전에 진행
