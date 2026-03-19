@@ -35,9 +35,8 @@
 - Mock 캘린더 교집합 0개: 랜덤 생성 문제 → referenceSlots로 보장
 - IPv6 타임아웃: grammy + node-fetch → `https.Agent({ family: 4 })` 적용
 
-### 다음
-- [ ] 리서치 1-1: A2A/MCP/Matrix 프로토콜 스펙 정독
-- [ ] 캘린더 통합 래퍼 + 시간 잠금 기능 설계 (TODO에 기록)
+### 다음 (→ Day 3에서 수행)
+- [ ] ClawTalk MVP Sprint 1: 프로젝트 셋업 + 웹 앱 기본 껍데기
 
 ---
 

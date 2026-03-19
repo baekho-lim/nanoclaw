@@ -4,15 +4,16 @@
 
 ---
 
-## 지금 (이번 세션)
+## 지금 (다음 세션)
 
-- [ ] 리서치 1-1: A2A/MCP/Matrix 프로토콜 스펙 비교 → `docs/research/01-protocol-comparison.md`
+- [ ] ClawTalk MVP Sprint 1: 프로젝트 셋업 (Next.js + Prisma + Google OAuth)
+- [ ] Sprint 1 검증: 로그인 → 빈 Room 리스트 표시
 
 ## 이번 주
 
-- [ ] 리서치 1-3: 에이전트 오케스트레이션 아키텍처 (CrewAI/LangGraph 코드 분석)
-- [ ] 경쟁 제품 핸즈온 (Dify, n8n, Dust.tt)
-- [ ] 실제 2인 테스트 (친구 초대하여 PoC 검증)
+- [ ] Sprint 2: Room + 실시간 메시징 (WebSocket)
+- [ ] Sprint 3: Task Engine + HITL (PoC Coordinator 리팩토링)
+- [ ] Sprint 4: Schedule Agent + Calendar 연동 (PoC 코드 이식)
 
 ## 다음 주
 
@@ -59,3 +60,6 @@
 - [x] 2026-03-20: 후속 리서치 마스터 플랜 수립
 - [x] 2026-03-20: 개발 문서화 체계 수립
 - [x] 2026-03-20: PoC 001 구현 + Google Calendar 연동 (동작 확인)
+- [x] 2026-03-20: 리서치 1-1 완료: A2A/MCP/Matrix 프로토콜 비교
+- [x] 2026-03-20: ClawTalk PRD 작성 완료
+- [x] 2026-03-20: MVP 구현 계획 수립 (8주 스프린트)
