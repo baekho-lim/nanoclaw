@@ -36,6 +36,10 @@ export class Coordinator {
       slotsA: [],
       slotsB: [],
       commonSlots: [],
+      choicesA: new Set(),
+      choicesB: new Set(),
+      submittedA: false,
+      submittedB: false,
       createdAt: Date.now(),
     };
     this.sessions.set(id, session);
@@ -53,16 +57,13 @@ export class Coordinator {
     return undefined;
   }
 
-  // Step 1: BotA checks user A's calendar
+  // Step 1: BotA checks user A's calendar (실제 Google Calendar API)
   async checkCalendarA(sessionId: string): Promise<TimeSlot[]> {
     const session = this.sessions.get(sessionId)!;
     session.state = "checking_a";
     this.onStateChange(session);
 
-    // Simulate delay
-    await sleep(1000);
-
-    session.slotsA = getAvailableSlots(session.userA.id);
+    session.slotsA = await getAvailableSlots("primary");
     return session.slotsA;
   }
 
@@ -77,6 +78,7 @@ export class Coordinator {
       to: "botB",
       type: "schedule_request",
       data: {
+        sessionId: sessionId,
         userA: session.userA.name,
         slotsA: session.slotsA.map((s) => s.label),
       },
@@ -91,15 +93,22 @@ export class Coordinator {
     session.state = "checking_b";
     this.onStateChange(session);
 
-    await sleep(1000);
-
-    session.slotsB = getAvailableSlots(session.userB.id);
+    // 솔로 모드(-1)이면 A의 슬롯 기반으로 생성, 아니면 실제 캘린더 조회
+    if (session.userB.id === -1) {
+      // 가상 친구: A의 슬롯 중 70%를 랜덤으로 포함
+      const shuffled = [...session.slotsA].sort(() => Math.random() - 0.5);
+      const count = Math.max(2, Math.floor(shuffled.length * 0.7));
+      session.slotsB = shuffled.slice(0, count);
+    } else {
+      session.slotsB = await getAvailableSlots("primary");
+    }
 
     this.onAgentComm({
       from: "botB",
       to: "botA",
       type: "schedule_response",
       data: {
+        sessionId: sessionId,
         userB: session.userB.name,
         slotsB: session.slotsB.map((s) => s.label),
       },
@@ -123,6 +132,7 @@ export class Coordinator {
       to: "botB",
       type: "negotiation_result",
       data: {
+        sessionId: sessionId,
         commonSlots: session.commonSlots.map((s) => s.label),
         count: session.commonSlots.length,
       },
@@ -134,32 +144,46 @@ export class Coordinator {
     return session.commonSlots;
   }
 
-  // Step 5: Record user choices
-  recordChoice(sessionId: string, who: "A" | "B", slotId: string): "waiting" | "confirmed" | "mismatch" {
+  // 토글: 슬롯 선택/해제
+  toggleChoice(sessionId: string, who: "A" | "B", slotId: string): Set<string> {
     const session = this.sessions.get(sessionId)!;
-    if (who === "A") session.choiceA = slotId;
-    if (who === "B") session.choiceB = slotId;
-
-    if (!session.choiceA || !session.choiceB) return "waiting";
-
-    if (session.choiceA === session.choiceB) {
-      session.state = "confirmed";
-      this.onStateChange(session);
-      return "confirmed";
+    const choices = who === "A" ? session.choicesA : session.choicesB;
+    if (choices.has(slotId)) {
+      choices.delete(slotId);
+    } else {
+      choices.add(slotId);
     }
-
-    return "mismatch";
+    return choices;
   }
 
-  finalize(sessionId: string): { slot: TimeSlot; session: ScheduleSession } | null {
+  // 확인 제출
+  submitChoices(sessionId: string, who: "A" | "B"): "waiting" | "confirmed" | "no_overlap" {
+    const session = this.sessions.get(sessionId)!;
+    if (who === "A") session.submittedA = true;
+    if (who === "B") session.submittedB = true;
+
+    if (!session.submittedA || !session.submittedB) return "waiting";
+
+    // 양쪽 선택의 교집합
+    const overlap = [...session.choicesA].filter((id) => session.choicesB.has(id));
+    if (overlap.length === 0) return "no_overlap";
+
+    session.state = "confirmed";
+    this.onStateChange(session);
+    return "confirmed";
+  }
+
+  // 양쪽 선택의 교집합에서 최종 확정 시간 반환
+  finalize(sessionId: string): { slots: TimeSlot[]; session: ScheduleSession } | null {
     const session = this.sessions.get(sessionId)!;
     if (session.state !== "confirmed") return null;
 
-    const slot = session.commonSlots.find((s) => s.id === session.choiceA)!;
+    const overlap = [...session.choicesA].filter((id) => session.choicesB.has(id));
+    const slots = session.commonSlots.filter((s) => overlap.includes(s.id));
     session.state = "done";
     this.onStateChange(session);
 
-    return { slot, session };
+    return { slots, session };
   }
 }
 

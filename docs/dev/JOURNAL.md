@@ -7,28 +7,37 @@
 ## 2026-03-20 (Day 2)
 
 ### 한 일
-- 메신저별 에이전트 간 통신 가능성 비교 분석 완료
-  - Telegram: 봇 간 메시지 수신 원천 차단 (Telegram 설계 결정)
-  - Slack: 같은 워크스페이스면 가능, 크로스 조직은 비현실적
-  - Discord: 공유 서버만 있으면 가장 쉬움, 단 HITL UI 빈약
-  - WhatsApp (Baileys): 가능하나 비공식+밴 위험
-  - NanoClaw: 에이전트 간 통신 메커니즘 자체가 없음
+- 메신저별 에이전트 간 통신 가능성 비교 분석 완료 → `docs/research/05-messenger-agent-comparison.md`
 - NanoClaw 채널 아키텍처 상세 분석 (IPC, container-runner, group-queue)
-- PoC "약속 잡기" 데모 설계 완료
 - 후속 리서치 마스터 플랜 수립 (4단계, 13개 리서치 주제, 6주)
+- 개발 문서화 체계 수립 → `docs/dev/` (JOURNAL, TODO, DECISIONS, PoC 트래킹)
+- **PoC 001 "약속 잡기" 구현 및 동작 확인** → `poc/schedule-agent/`
+  - Telegram 봇 2개 (BotA: @Nano_Samanda_bot, BotB: @BHtalk_friend_agent_bot)
+  - 공유 백엔드 Coordinator 패턴 (상태 머신)
+  - 에이전트 간 통신 투명성 로그 ([🅰️ → 🅱️ 에이전트 간 통신])
+  - 복수 선택 HITL (⬜/✅ 토글 + 📌 확인, 순차 선택: A 먼저 → B는 A 선택 중에서)
+  - 솔로 모드 (가상 친구) 지원
+  - **Google Calendar 실제 연동** (OAuth2 + FreeBusy API + Events API)
+    - GCP 프로젝트 생성, OAuth 동의 화면, credentials.json, token.json
+    - 실제 빈 저녁 시간 조회 → 확정 시 Google Calendar에 이벤트 생성
+- git 커밋: `e8e112c` (16파일, 1,769줄)
 
 ### 핵심 발견
-- **어떤 메이저 메신저도 에이전트 간 직접 통신을 지원하지 않음** → 블루오션 확인
-- ACP(Agent Communication Protocol) = A2A + HITL + Observability + Federation
-- 기존 메신저를 "대체"가 아닌 그 위에 올라가는 "에이전트 계층"으로 포지셔닝
+- **Telegram은 봇 간 메시지 수신을 원천 차단** — 공유 백엔드가 유일한 해법
+- **Coordinator 패턴 = ACP 서버의 프로토타입** — 상태 머신이 에이전트 간 조율의 핵심
+- **순차 선택이 병렬보다 자연스러움** — A가 먼저 복수 선택 → B가 그 중에서 선택
+- **그룹 프라이버시 모드** — Telegram 봇은 그룹에서 일반 텍스트를 못 봄, 인라인 버튼 필수
+- **Google Calendar FreeBusy API** — 실제 빈 시간을 1시간 단위로 조회 가능
 
-### 막힌 것
-- 없음
+### 막힌 것 (모두 해결됨)
+- Telegram 그룹 프라이버시: "확인" 텍스트 못 봄 → 인라인 버튼으로 해결
+- NanoClaw와 봇 토큰 충돌: 동시 polling 불가 → NanoClaw 중지 후 PoC 실행
+- Mock 캘린더 교집합 0개: 랜덤 생성 문제 → referenceSlots로 보장
+- IPv6 타임아웃: grammy + node-fetch → `https.Agent({ family: 4 })` 적용
 
 ### 다음
-- [ ] BotB 토큰 생성 (BotFather)
-- [ ] PoC 001 구현: 봇 2개 + 공유 백엔드 "약속 잡기" 데모
-- [ ] 리서치 1-1: MCP/A2A/Matrix 프로토콜 스펙 정독
+- [ ] 리서치 1-1: A2A/MCP/Matrix 프로토콜 스펙 정독
+- [ ] 캘린더 통합 래퍼 + 시간 잠금 기능 설계 (TODO에 기록)
 
 ---
 

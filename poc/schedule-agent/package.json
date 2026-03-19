@@ -8,8 +8,9 @@
     "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "grammy": "^1.41.1",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "googleapis": "^171.4.0",
+    "grammy": "^1.41.1"
   },
   "devDependencies": {
     "tsx": "^4.19.0",

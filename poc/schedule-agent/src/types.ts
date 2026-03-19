@@ -22,7 +22,9 @@ export interface ScheduleSession {
   slotsA: TimeSlot[];
   slotsB: TimeSlot[];
   commonSlots: TimeSlot[];
-  choiceA?: string; // slot id
-  choiceB?: string; // slot id
+  choicesA: Set<string>; // slot ids (복수 선택)
+  choicesB: Set<string>;
+  submittedA: boolean;
+  submittedB: boolean;
   createdAt: number;
 }
