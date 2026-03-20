@@ -1,36 +1,28 @@
-<p align="center">
-  <img src="assets/nanoclaw-logo.png" alt="NanoClaw" width="400">
-</p>
+&lt;p align="center"&gt; &lt;img src="assets/nanoclaw-logo.png" alt="NanoClaw" width="400"&gt; &lt;/p&gt;
 
-<p align="center">
-  An AI assistant that runs agents securely in their own containers. Lightweight, built to be easily understood and completely customized for your needs.
-</p>
+&lt;p align="center"&gt; An AI assistant that runs agents securely in their own containers. Lightweight, built to be easily understood and completely customized for your needs. &lt;/p&gt;
 
-<p align="center">
-  <a href="https://nanoclaw.dev">nanoclaw.dev</a>&nbsp; • &nbsp;
-  <a href="README_zh.md">中文</a>&nbsp; • &nbsp;
-  <a href="https://discord.gg/VDdww8qS42"><img src="https://img.shields.io/discord/1470188214710046894?label=Discord&logo=discord&v=2" alt="Discord" valign="middle"></a>&nbsp; • &nbsp;
-  <a href="repo-tokens"><img src="repo-tokens/badge.svg" alt="34.9k tokens, 17% of context window" valign="middle"></a>
-</p>
+&lt;p align="center"&gt; &lt;a href="https://nanoclaw.dev"&gt;nanoclaw.dev&lt;/a&gt;  •   &lt;a href="README_zh.md"&gt;中文&lt;/a&gt;  •   &lt;a href="https://discord.gg/VDdww8qS42"&gt;&lt;img src="https://img.shields.io/discord/1470188214710046894?label=Discord&logo=discord&v=2" alt="Discord" valign="middle"&gt;&lt;/a&gt;  •   &lt;a href="repo-tokens"&gt;&lt;img src="repo-tokens/badge.svg" alt="34.9k tokens, 17% of context window" valign="middle"&gt;&lt;/a&gt; &lt;/p&gt;
 
 ---
 
-<h2 align="center">🐳 Now Runs in Docker Sandboxes</h2>
-<p align="center">Every agent gets its own isolated container inside a micro VM.<br>Hypervisor-level isolation. Millisecond startup. No complex setup.</p>
+&lt;h2 align="center"&gt;🐳 Now Runs in Docker Sandboxes&lt;/h2&gt; &lt;p align="center"&gt;Every agent gets its own isolated container inside a micro VM.&lt;br&gt;Hypervisor-level isolation. Millisecond startup. No complex setup.&lt;/p&gt;
 
 **macOS (Apple Silicon)**
+
 ```bash
 curl -fsSL https://nanoclaw.dev/install-docker-sandboxes.sh | bash
 ```
 
 **Windows (WSL)**
+
 ```bash
 curl -fsSL https://nanoclaw.dev/install-docker-sandboxes-windows.sh | bash
 ```
 
 > Currently supported on macOS (Apple Silicon) and Windows (x86). Linux support coming soon.
 
-<p align="center"><a href="https://nanoclaw.dev/blog/nanoclaw-docker-sandboxes">Read the announcement →</a>&nbsp; · &nbsp;<a href="docs/docker-sandboxes.md">Manual setup guide →</a></p>
+&lt;p align="center"&gt;&lt;a href="https://nanoclaw.dev/blog/nanoclaw-docker-sandboxes"&gt;Read the announcement →&lt;/a&gt;  ·  &lt;a href="docs/docker-sandboxes.md"&gt;Manual setup guide →&lt;/a&gt;&lt;/p&gt;
 
 ---
 
@@ -48,15 +40,14 @@ cd nanoclaw
 claude
 ```
 
-<details>
-<summary>Without GitHub CLI</summary>
+&lt;details&gt; &lt;summary&gt;Without GitHub CLI&lt;/summary&gt;
 
 1. Fork [qwibitai/nanoclaw](https://github.com/qwibitai/nanoclaw) on GitHub (click the Fork button)
 2. `git clone https://github.com/<your-username>/nanoclaw.git`
 3. `cd nanoclaw`
 4. `claude`
 
-</details>
+&lt;/details&gt;
 
 Then run `/setup`. Claude Code handles everything: dependencies, authentication, container setup and service configuration.
 
@@ -73,6 +64,7 @@ Then run `/setup`. Claude Code handles everything: dependencies, authentication,
 **Customization = code changes.** No configuration sprawl. Want different behavior? Modify the code. The codebase is small enough that it's safe to make changes.
 
 **AI-native.**
+
 - No installation wizard; Claude Code guides setup.
 - No monitoring dashboard; ask Claude what's happening.
 - No debugging tools; describe the problem and Claude fixes it.
@@ -103,6 +95,7 @@ Talk to your assistant with the trigger word (default: `@Andy`):
 ```
 
 From the main channel (your self-chat), you can manage groups and tasks:
+
 ```
 @Andy list all scheduled tasks across groups
 @Andy pause the Monday briefing task
@@ -135,9 +128,11 @@ Users then run `/add-telegram` on their fork and get clean code that does exactl
 Skills we'd like to see:
 
 **Communication Channels**
+
 - `/add-signal` - Add Signal as a channel
 
 **Session Management**
+
 - `/clear` - Add a `/clear` command that compacts the conversation (summarizes context while preserving critical information in the same session). Requires figuring out how to trigger compaction programmatically via the Claude Agent SDK.
 
 ## Requirements
@@ -155,9 +150,10 @@ Channels --> SQLite --> Polling loop --> Container (Claude Agent SDK) --> Respon
 
 Single Node.js process. Channels are added via skills and self-register at startup — the orchestrator connects whichever ones have credentials present. Agents execute in isolated Linux containers with filesystem isolation. Only mounted directories are accessible. Per-group message queue with concurrency control. IPC via filesystem.
 
-For the full architecture details, see [docs/SPEC.md](docs/SPEC.md).
+For the full architecture details, see docs/SPEC.md.
 
 Key files:
+
 - `src/index.ts` - Orchestrator: state, message loop, agent invocation
 - `src/channels/registry.ts` - Channel registry (self-registration at startup)
 - `src/ipc.ts` - IPC watcher and task processing
@@ -180,7 +176,7 @@ Yes. Docker is the default runtime and works on both macOS and Linux. Just run `
 
 **Is this secure?**
 
-Agents run in containers, not behind application-level permission checks. They can only access explicitly mounted directories. You should still review what you're running, but the codebase is small enough that you actually can. See [docs/SECURITY.md](docs/SECURITY.md) for the full security model.
+Agents run in containers, not behind application-level permission checks. They can only access explicitly mounted directories. You should still review what you're running, but the codebase is small enough that you actually can. See docs/SECURITY.md for the full security model.
 
 **Why no configuration files?**
 
@@ -196,6 +192,7 @@ ANTHROPIC_AUTH_TOKEN=your-token-here
 ```
 
 This allows you to use:
+
 - Local models via [Ollama](https://ollama.ai) with an API proxy
 - Open-source models hosted on [Together AI](https://together.ai), [Fireworks](https://fireworks.ai), etc.
 - Custom model deployments with Anthropic-compatible APIs

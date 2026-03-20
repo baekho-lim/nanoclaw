@@ -53,7 +53,7 @@
 | T-09 | Syncthing/Tailscale 디바이스 동기화 | 낮음 | 전체 | 미시작 |
 | T-10 | 에이전트 오케스트레이션 (CrewAI/LangGraph 코드 분석) | 중간 | NanoClaw | 미시작 |
 | T-11 | 오디오 스토리지 최적화 (Opus, CDN) | 중간 | ClawMeeting | 미시작 |
-| T-12 | 기술 스택 선정 (백엔드/프론트/DB) | 낮음 | 전체 | 부분 (PRD에서 결정) |
+| T-12 | 기술 스택 선정 (백엔드/프론트/DB) | **완료** | 전체 | ✅ `T-12-tech-stack-decision.md` |
 
 ### 법규/IP
 
