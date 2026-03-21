@@ -110,8 +110,21 @@ poc/schedule-agent/
 4. **인라인 키보드가 HITL의 핵심 프리미티브** — 토글+확인 패턴으로 복수 선택 가능.
 5. **공유 백엔드 = Coordinator 패턴** — 상태 머신이 에이전트 간 조율의 중심. ACP 서버의 프로토타입.
 
+### GCP OAuth 설정 (2026-03-21)
+
+| 항목 | 값 |
+|------|-----|
+| GCP 프로젝트 | `agent-messenger-poc` |
+| 앱 이름 | Agent Scheduler PoC |
+| 사용자 유형 | 외부 (테스트 모드) |
+| OAuth scope | `https://www.googleapis.com/auth/calendar` |
+| 테스트 사용자 | `andy.baekho.lim@gmail.com` |
+| OAuth 클라이언트 | 데스크톱 앱, `schedule-agent-poc` |
+| credentials 위치 | `poc/schedule-agent/credentials.json` (gitignored) |
+
 ### 다음 단계
-- [ ] Google Calendar API 연동 (Mock → 실제)
+- [x] Google Calendar API 연동 (Mock → 실제)
+- [x] GCP OAuth 동의 화면 + 클라이언트 설정
 - [ ] 실제 2인 테스트 (친구 초대)
 - [ ] 에이전트 간 통신을 A2A 프로토콜 형식으로 구조화
 - [ ] NanoClaw에 Room + multi-agent 개념 통합
