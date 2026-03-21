@@ -1,6 +1,6 @@
 # 세션 핸드오프 문서
 
-> 새 세션에서 이 파일을 먼저 읽고 맥락을 파악합니다. 마지막 업데이트: 2026-03-20
+> 새 세션에서 이 파일을 먼저 읽고 맥락을 파악합니다. 마지막 업데이트: 2026-03-21
 
 ---
 
@@ -69,17 +69,28 @@ clawtalk 레포에는 제품 날카로운 문서(뭘 + 어떻게):
 
 ---
 
+## 멀티레포 맥락 관리
+
+```
+~/bhOS/docs/BHOS-ECOSYSTEM.md          ← 생태계 원본 (단일 소스)
+~/.claude/skills/bh-eco-sync/SKILL.md  ← 글로벌 스킬 (맥락 동기화)
+
+새 레포에서: /bh-eco-sync → auto-memory에 맞춤 요약 저장
+기존 레포 업데이트: /bh-eco-sync → 덮어쓰기
+```
+
 ## 핵심 문서
 
 | 문서 | 경로 | 내용 |
 | --- | --- | --- |
-| **생태계 비전** | `docs/dev/ECOSYSTEM-VISION.md` | 전체 전략, 아키텍처, ADR 13개 |
+| **생태계 통합** | `docs/export/BHOS-ECOSYSTEM.md` | 전체 전략 통합 (830줄, 포터블) |
+| **생태계 비전** | `docs/dev/ECOSYSTEM-VISION.md` | 전체 전략, 아키텍처, ADR 15개 |
 | **ClawTalk PRD** | `docs/dev/PRD.md` | 제품 스펙 (7개 기능, BM, 로드맵) |
 | **MVP 구현 계획** | `.claude/plans/abundant-twirling-chipmunk.md` | Sprint 1\~8 |
 | **프로토콜 비교** | `docs/research/01-protocol-comparison.md` | A2A/MCP/Matrix → ACP |
 | **메신저 비교** | `docs/research/05-messenger-agent-comparison.md` | 5개 플랫폼 에이전트 통신 |
 | **PoC 코드** | `poc/schedule-agent/` | 재사용할 검증된 코드 |
-| **개발 일지** | `docs/dev/JOURNAL.md` | Day 1\~2 기록 |
+| **개발 일지** | `docs/dev/JOURNAL.md` | Day 1\~3 기록 |
 
 ---
 
