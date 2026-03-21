@@ -53,6 +53,23 @@
 
 ---
 
+## 2026-03-21 (Day 3) — Telegram 장애 복구
+
+### 한 일
+
+- **Telegram 봇 장애 진단 및 복구**
+  - 증상: `@Nano_Samanda_bot` 무응답 (프로세스 등록만 되고 실제 PID 미존재)
+  - 원인: grammy `getUpdates` 409 Conflict — 이전 프로세스 미종료 상태에서 새 인스턴스 시작, 동시 polling으로 unhandled rejection 크래시
+  - 해결: `launchctl kickstart -k gui/$(id -u)/com.nanoclaw` 로 강제 재시작
+  - Pool bot (`@BHtalk_friend_agent_bot`) 포함 전체 정상 기동 확인
+
+### 교훈
+
+- KeepAlive=true여도 409 충돌 크래시 후 launchd 자동 복구가 실패하는 케이스 존재
+- 향후: unhandled rejection에서 409 감지 시 `process.exit(1)`로 graceful restart 유도 고려
+
+---
+
 ## 2026-03-20 (Day 2) — 후반
 
 ### 한 일 (후반)
